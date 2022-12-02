@@ -1,25 +1,33 @@
 
-inventory = []
+def main( path ):
 
-with open( "./Day1/input.txt" ) as file:
-    pers = []
-    index = 0
-    for line in file:
-        
-        match line:
-            case "\n":
-                inventory = inventory + [ ( pers, index ) ]
-                index = index + 1
-                pers = []
-            case other:
-                pers += [ int( line.strip() ) ]
+    inventory = []
 
-totals = [ ( sum( elf[ 0 ] ), elf[ 1 ] ) for elf in inventory ]
+    with open( path ) as file:
+        pers = []
+        index = 0
+        for line in file:
+            
+            match line:
+                case "\n":
+                    inventory = inventory + [ ( pers, index ) ]
+                    index = index + 1
+                    pers = []
+                case other:
+                    pers += [ int( line.strip() ) ]
 
-totalsSorted = sorted( totals, key = lambda elf : elf[ 0 ], reverse = True )
+    totals = [ ( sum( elf[ 0 ] ), elf[ 1 ] ) for elf in inventory ]
 
-# Part 1
-print ( totalsSorted[ 0 ] )
+    totalsSorted = sorted( totals, key = lambda elf : elf[ 0 ], reverse = True )
 
-# Part 2
-print( sum ( [ elf[ 0 ] for elf in totalsSorted[ :3 ] ] ) )
+    # Part 1
+    part1 = ( totalsSorted[ 0 ][ 0 ] )
+
+    # Part 2
+    part2 = sum ( [ elf[ 0 ] for elf in totalsSorted[ :3 ] ] )
+
+    return ( part1, part2 )
+
+assert ( main( "./Day1/test.txt" ) == ( 24000, 45000 ) )
+
+print( main( "./Day1/input.txt" ) )
