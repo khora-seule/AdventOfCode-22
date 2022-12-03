@@ -1,9 +1,3 @@
-
-
-from time import time
-
-start = time()
-
 def main( path ):
 
     transOpp  = dict( zip( [ "A", "B", "C" ], range( 3 ) ) )
@@ -32,7 +26,3 @@ def main( path ):
 assert ( main( "./Day2/test.txt" ) == ( 15, 12 ) )
 
 print( main( "./Day2/input.txt" ) )
-
-end = time()
-
-print( ( end - start ) * 100 )
