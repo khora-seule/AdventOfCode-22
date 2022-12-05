@@ -18,10 +18,7 @@ def main( path ):
         if( overlap != set() ):
             overlaps += 1
 
-
-
     return ( totalOverlaps, overlaps )
-
 
 assert ( main( "./Day4/test.txt" ) == ( 2, 4 ) )
 
