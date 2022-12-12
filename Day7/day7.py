@@ -3,19 +3,20 @@ def processLine( dirStructure, current, line ):
     match line.split():
 
         case [ "$", "cd", "/" ]:
-            dirStructure[ "/" ] = {}
-            current = dirStructure[ "/" ]
-            current[ "dirs" ] = {}
-            current[ "files" ] = []
-            current[ "size" ] = 0
+            current = "/"
+            dirStructure[ current ] = {}
+            dirStructure[ current ][ "parents" ] = None
+            dirStructure[ current ][ "dirs" ] = {}
+            dirStructure[ current ][ "files" ] = []
+            dirStructure[ current ][ "size" ] = 0
 
         case [ "$", "cd", ".." ]:
             if( current != dirStructure[ "/" ] ):
                 current = [ dirName for dirName in dirStructure if current in dirStructure[ dirName ][ "dirs" ] ][ 0 ]
 
         case [ "$", "cd", parentName ]:
-            dirStructure[ current ][ "dirs" ][ parentName ] = {}
-            dirStructure[ current ][ "dirs" ][ parentName ][ "dirs" ] = {}
+            dirStructure[ current ][ "dirs" ] += [ parentName ]
+            dirStructure[ parentName ][ "dirs" ] = []
             dirStructure[ current ][ "dirs" ][ parentName ][ "files" ] = []
             dirStructure[ current ][ "dirs" ][ parentName ][ "size" ] = 0
 
